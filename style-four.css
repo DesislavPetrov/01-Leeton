@@ -217,16 +217,22 @@ div#legend-items > div{
 }
 
 div#pins-explanation > span{
-  display: inline-block;
+      display: inline-block;
+    text-align: left;
     width: 249px;
     position: relative;
     top: 7px;
+    font-size: 12px;
+    line-height: 20px;
 }
 div#zoom-button-explanation > span{
   display: inline-block;
     width: 214px;
     position: relative;
     top: -40px;
+  text-align: left;
+  font-size: 12px;
+    line-height: 20px;
 }
 div#zoom-button-explanation > img{
   position: relative;
