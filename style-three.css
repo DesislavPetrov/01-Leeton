@@ -154,8 +154,11 @@ div.welcome-content {
 
 
 div.toggle-legend-box {
-  background-color: #ffffff;
-  color: #000000;
+  float: right;
+    right: 15px;
+    top: -471px;
+    position: relative;
+    color: #000000;
 }
 
 img.legend-image {
