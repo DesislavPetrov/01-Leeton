@@ -229,16 +229,17 @@ div#zoom-button-explanation > span{
   display: inline-block;
     width: 214px;
     position: relative;
-    top: -40px;
-  text-align: left;
-  font-size: 12px;
+    top: -13px;
+    left: -9px;
+    text-align: left;
+    font-size: 12px;
     line-height: 20px;
 }
 div#zoom-button-explanation > img{
   position: relative;
-    right: -16px;
-    width: 19px;
-    top: -12px;
+    right: 2px;
+    width: 18px;
+    top: -28px;
 }
 
 .mapboxgl-popup-content {
