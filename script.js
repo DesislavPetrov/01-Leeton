@@ -126,9 +126,9 @@ $.getJSON(
           iconUrl = "https://uploads-ssl.webflow.com/650167c877dd38466d76ae92/65d4b14c1c64d439297476c0_education.svg";
           break;
         case "healthcare":
-          iconUrl = "healthcare.svg";
+          iconUrl = "https://uploads-ssl.webflow.com/650167c877dd38466d76ae92/65d4b14c83b1110937c48e47_healthcare.svg";
           break;
-        case "https://uploads-ssl.webflow.com/650167c877dd38466d76ae92/65d4b14c83b1110937c48e47_healthcare.svg":
+        case "culture-&-recreation":
           iconUrl =
             "https://uploads-ssl.webflow.com/650167c877dd38466d76ae92/65d4b13f2b390ed441decd7a_culture-%26-recreation.svg";
           break;
