@@ -1,245 +1,428 @@
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiY291bnRyeS1jaGFuZ2UiLCJhIjoiY2xtdDd5N2liMDJtaTJrbXNjdGVxZWhuYSJ9.2_l1izu_uVDTRVoc9kmY2Q";
+/* load font*/
 
-var filterGroup = document.getElementById("ll");
-// var filterGroup = document.getElementById('filter-group');
-
-var map = new mapboxgl.Map({
-  container: "map",
-  style: "mapbox://styles/country-change/cloh5ebey001101qyh00a5103",
-  center: [146.403456, -34.6307854],
-  zoom: 10,
-  preserveDrawingBuffer: true,
-  customAttribution:
-    '<a style="background-color: #567B5C; color: #FFFFFF;" target="_blank" href=http://www.geocadder.bg/en>GEOCADDDER</a>',
-});
-
-/* Adding custom control / custom button for chanigng base map style*/
-class MapboxGLButtonControl {
-  constructor({ className = "", title = "", eventHandler = evtHndlr }) {
-    this._className = className;
-    this._title = title;
-    this._eventHandler = eventHandler;
-  }
-
-  onAdd(map) {
-    this._btn = document.createElement("button");
-    this._btn.className = "mapboxgl-ctrl-icon" + " " + this._className;
-    this._btn.type = "button";
-    this._btn.title = this._title;
-    this._btn.onclick = this._eventHandler;
-
-    this._container = document.createElement("div");
-    this._container.className = "mapboxgl-ctrl-group mapboxgl-ctrl";
-    this._container.appendChild(this._btn);
-
-    return this._container;
-  }
-
-  onRemove() {
-    this._container.parentNode.removeChild(this._container);
-    this._map = undefined;
-  }
+/* @font-face {
+  font-family: "ProximaNova";
+  src: url("Proxima Nova Font.otf") format("opentype");
 }
 
-/* start legend custom control button */
+@font-face {
+  font-family: "BebasNeue";
+  src: url("BebasNeue-Regular.ttf") format("opentype");
+} */
 
-/* Event Handlers */
-function two(event) {
-  $("div.toggle-legend-box").addClass("visible-legend-box");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "ProximaNova";
 }
 
-/* Instantiate new controls with custom event handlers */
-const ctrlTwoPoint = new MapboxGLButtonControl({
-  className: "toggle-legend-control",
-  title: "View legend",
-  eventHandler: two,
-});
+#map {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  z-index: 2001;
+}
 
-map.addControl(ctrlTwoPoint, "bottom-right");
-/* end filter custom control button */
+/* custom control / custom button */
+.toggle-layers-control {
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: auto;
+  background-image: url(base-map-toggle.png);
+}
 
-var nav = new mapboxgl.NavigationControl();
-map.addControl(nav, "bottom-left");
+/* end custom control / custom button */
 
-// toggle legend
+/* custom control / custom button */
+.toggle-legend-control {
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: auto;
+  background-image: url(https://uploads-ssl.webflow.com/650167c877dd38466d76ae92/65d4b1553f976f175b31cfb9_toggle-legend.png);
+}
 
-$(".button-toggle-legend").on("click", function () {
-  $("div.toggle-legend-box").addClass("visible-legend-box");
-});
+/* end custom control / custom button */
 
-$(".welcome-close-button").on("click", function () {
-  $("div.visible-legend-box").removeClass("visible-legend-box");
-});
-// toggle legend
+div.toggle-legend-box {
+  background-color: #ffffff;
+  color: #000000;
+}
 
-var bounds = new mapboxgl.LngLatBounds();
+.toggle-legend-box-image {
+  width: 100%;
+  height: 310px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
 
-var markersAllIds = [];
 
-var markersAllIdsLatsLongs = [];
-var onlySelectedaccessibilityPoints = [];
-var isinitialSelectedMarkerId = false;
-var initialSelectedMarkerId = "";
-var counter = 0;
-var markerId = 1;
+div.welcome-content {
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  height: 85%;
+}
 
-/// loading POIs data from Google Sheets table///
-$.getJSON(
-  "https://sheets.googleapis.com/v4/spreadsheets/1czGrKm-cLMhyc0CMJAz-sS0v0qwdLdyXEboHVVkDw_M/values/01.Leeton!A2:H3000?majorDimension=ROWS&key=AIzaSyArKykrTA2zH924RmE2yORI4zT42lNr1HQ",
-  function (response) {
-    response.values.forEach(function (marker) {
-      console.log(marker[0]);
+button.welcome-button {
+  display: block;
+  float: left;
+  height: 47px;
+  box-sizing: border-box;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  width: 186px;
+  margin-right: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
 
-      var name = marker[0];
-      console.log(name);
+.first-welcome-button {
+  display: block;
+  height: 47px;
+  box-sizing: border-box;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  width: 186px;
+  margin: 0 auto;
+  cursor: pointer;
+  background-color: #000000;
+  border-color: #000000;
+  color: #ffffff;
+}
 
-      var type = marker[1];
-      var typeSmallLetters = type.toLowerCase().replace(/\s/g, "-");
-      var typeSmallLetters = typeSmallLetters
-        .replaceAll(",", "")
-        .replaceAll("/", "-");
-      console.log(typeSmallLetters);
+span.welcome-close-button {
+  float: right;
+  right: 13px;
+  border-radius: 21px;
+  background-color: #000000;
+  border: 1px solid #000000;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  /* color: #E94E1B; */
+  cursor: pointer;
+  margin-top: 15px;
+  margin-right: 15px;
+  padding: 0;
+  line-height: 26px;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+}
 
-      console.log(markerId);
+span.welcome-close-button:hover {
+  /* border-color: #E94E1B; */
+  /* background-color: #E94E1B; */
+  color: #252424;
+  background-color: #ffffff;
+  border: 1px solid #252424;
+}
 
-      var address = marker[2];
-      var latitude = parseFloat(marker[3]);
-      var longitude = parseFloat(marker[4]);
-      console.log(latitude);
-      console.log(longitude);
-      var phoneNumber = marker[5];
+.sidebar-content-inner {
+  text-align: center;
+}
 
-      var url = marker[6];
-      if (url && url.indexOf("www") > -1) {
-        console.log(url);
-        url = url
-          .replaceAll("www.", "https://")
-          .replaceAll("https://www.", "https://");
-      } else {
-        console.log(url);
-      }
+.visible-legend-box {
+  display: block;
+    position: relative;
+    border-radius: 7px;
+    background-color: white;
+    z-index: 2001;
+    position: absolute;
+    width: 283px;
+    height: 339px;
+    right: 10px;
+    top: 10%;
+}
 
-      var iconUrl = "";
-      switch (typeSmallLetters) {
-        case "education":
-          iconUrl = "https://uploads-ssl.webflow.com/650167c877dd38466d76ae92/65d4b14c1c64d439297476c0_education.svg";
-          break;
-        case "healthcare":
-          iconUrl = "https://uploads-ssl.webflow.com/650167c877dd38466d76ae92/65d4b14c83b1110937c48e47_healthcare.svg";
-          break;
-        case "culture-&-recreation":
-          iconUrl =
-            "https://uploads-ssl.webflow.com/650167c877dd38466d76ae92/65d4b13f2b390ed441decd7a_culture-%26-recreation.svg";
-          break;
-        default:
-          iconUrl =
-            "https://uploads-ssl.webflow.com/650167c877dd38466d76ae92/65d4b13f2b390ed441decd7a_culture-%26-recreation.svg";
-      }
+div.welcome-content {
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  height: 85%;
+}
 
-      bounds.extend([longitude, latitude]);
 
-      var popupContent =
-        "<div class='marker-popup-icon'><img src='" +
-        iconUrl +
-        "'></div><div class='title'>" +
-        name +
-        "</div>";
+div.toggle-legend-box {
+  float: right;
+    right: 15px;
+    top: -471px;
+    position: relative;
+    color: #000000;
+}
 
-      if (address) {
-        popupContent +=
-          "<div class='popup-details' ><a class='contacts' target='_blank' href='https://www.google.com/maps/dir//" +
-          latitude +
-          "," +
-          longitude +
-          "'><span class='material-symbols-outlined'>location_on</span><span class='contacts-text'>" +
-          address +
-          "</span></a></div>";
-      }
+img.legend-image {
+  width: 35px;
+  float: right;
+  margin-right: 16px;
+  margin-top: -6px;
+}
 
-      if (phoneNumber) {
-        popupContent +=
-          "<div class='popup-details' ><a class='contacts' href='tel:" +
-          phoneNumber +
-          "'><span class='material-symbols-outlined'>call</span><span class='contacts-text'>" +
-          phoneNumber +
-          "</span></a></div>";
-      }
+div#legend-items {
+  margin-left: 10px;
+  font-weight: bold;
+}
 
-      if (url) {
-        popupContent +=
-          "<div class='popup-details'><a class='url-button' target='_blank' href='" +
-          url +
-          "'><i class='fa fa-home' aria-hidden='true'></i>View more</a></div>";
-      }
+div#legend-items > div{
+  margin-bottom: 29px;
+}
 
-      popup = new mapboxgl.Popup({ closeOnClick: false }).setHTML(popupContent);
+.marker {
+  border: none;
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+  background-repeat: no-repeat;
+}
 
-      // create a HTML element for each feature
-      var el = document.createElement("div");
-      el.className = "marker " + markerId;
-      // el.id = markerId;
+.marker:hover {
+  color: pointer;
+}
 
-      el.style.backgroundImage = "url(" + iconUrl + ")";
+/*popup styling*/
 
-      var markerObj = new mapboxgl.Marker(el)
-        .setLngLat([longitude, latitude])
-        .setPopup(popup)
-        .addTo(map);
+.mapboxgl-popup-close-button {
+  float: right;
+  right: 13px;
+  border-radius: 21px;
+  border: 1px solid #363532;
+  background-color: #ffffff;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  color: #363532;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 0;
+}
 
-      $(el).click(function () {
-        var currentZoom = map.getZoom();
-        map.flyTo({
-          center: [longitude, latitude],
-          zoom: currentZoom,
-          offset: [0, -150],
-          duration: 1000,
-        });
-      });
+.mapboxgl-popup-close-button:hover {
+  border-color: #363532;
+  background-color: #363532;
+  color: #ffffff;
+}
 
-      markersAllIds.push({
-        markerId: markerId,
-      });
+.mapboxgl-popup-tip {
+  margin-left: 1%;
+}
 
-      markersAllIdsLatsLongs.push({
-        markerId: markerId,
-        latitude: latitude,
-        longitude: longitude,
-      });
+div#pins-explanation > span{
+      display: inline-block;
+    text-align: left;
+    width: 249px;
+    position: relative;
+    top: 7px;
+    font-size: 12px;
+    line-height: 20px;
+}
+div#zoom-button-explanation > span{
+  display: inline-block;
+    width: 214px;
+    position: relative;
+    top: -13px;
+    left: -9px;
+    text-align: left;
+    font-size: 12px;
+    line-height: 20px;
+}
+div#zoom-button-explanation > img{
+  position: relative;
+    right: 2px;
+    width: 18px;
+    top: -28px;
+}
 
-      console.log(markersAllIdsLatsLongs);
+.mapboxgl-popup-content {
+  border-radius: 0;
+  background-color: #ffffff;
+  height: 210px;
+  width: 282px;
+  padding: 8px;
+  border-radius: 10px;
+  padding-bottom: 0;
+  padding-right: 20px;
+    padding-left: 17px;
+}
 
-      counter++;
-      markerId += 1;
-      $(".popup-text").click(function (e) {
-        e.preventDefault();
-        console.log("desi");
-        window.location = projectlink;
-      });
+div.popup-details {
+  font: 20px "ProximaNova", sans-serif;
+  margin-bottom: 10px;
+  font-size: 20px;
+  text-align: left;
+}
 
-      // $(".popup-text").on("click", function () {
-      //   console.log("desi");
-      //   window.open(projectlink);
-      //   e.preventDefault();
-      // });
-    });
+div.popup-details a.contacts {
+  text-decoration: none;
+  color: #363532;
+  font-size: 16px;
+  text-align: left;
+  display: inline-flex;
+  outline: none;
+}
+div.popup-details a.contacts:hover {
+  text-decoration: none;
+  color: #363532;
+}
 
-    var objectsJson = markersAllIds.map((object) => JSON.stringify(object));
-    var objectsJsonSet = new Set(objectsJson);
-    var uniqueJsonArray = Array.from(objectsJsonSet);
-    var uniqueObjectsByContent = uniqueJsonArray.map((string) =>
-      JSON.parse(string)
-    );
+div.popup-details a.contacts > span.contacts-text {
+  margin-top: 3px;
+  padding-left: 3px;
+}
 
-    // close all opened popups
-    $(".marker").click(function () {
-      $(".mapboxgl-popup").remove();
-    });
+div.popup-details a.url-button {
+  font: 16px "ProximaNova", sans-serif;
+  display: block;
+  padding-top: 16px;
+  width: 131px;
+  text-align: justify;
+  background-color: #363532;
+  color: #ffffff;
+  margin-left: 68px;
+  padding-left: 25px;
+  height: 32px;
+  border: 1px solid #363532;
+  text-decoration: none;
+  border-radius: 10px;
+}
+div.popup-details a.url-button:hover {
+  background-color: #ffffff;
+  color: #363532;
+  text-decoration: none;
+}
 
-    $(".mapboxgl-canvas").click(function () {
-      $(".mapboxgl-popup").remove();
-    });
+div.popup-details i.fa {
+  margin-left: 0;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #509f71;
+}
 
-    map.fitBounds(bounds, { padding: 80 });
+div.mapboxgl-popup-content div.popup-image img {
+  width: 300px;
+  max-height: 250px;
+}
+
+div.title,
+div.marker-popup-icon{
+  display: inline-block;
+}
+
+div.marker-popup-icon{
+  position: relative;
+    left: -5px;
+    top: 3px;
+}
+
+div.marker-popup-icon> img{
+  width: 33px;
+  
+}
+.mapboxgl-popup-content div.title {
+  font: 24px "BebasNeue";
+  color: #363532;
+  text-align: center;
+  /* font-weight: bold; */
+  line-height: 21px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+.mapboxgl-popup-content div.content {
+  /* height: 113px; */
+  width: 98%;
+  border-radius: 8px;
+  /* background-color: #ffffff; */
+  color: #363532;
+  text-align: left;
+  margin-top: 10px;
+}
+
+div.mapboxgl-popup-content > div.content > span.city {
+  position: absolute;
+  padding-top: 5px;
+  margin-left: 15px;
+}
+
+div.mapboxgl-popup-content div.popup-link {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+  border-bottom-color: #85bbd7;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+  border-top-color: #85bbd7;
+}
+
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+  border-right-color: #85bbd7;
+}
+
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  border-left-color: #85bbd7;
+}
+
+#map
+  > div.mapboxgl-popup.mapboxgl-popup-anchor-bottom
+  > div.mapboxgl-popup-content
+  > div.popup-type-image {
+  margin-bottom: 15px;
+  margin-left: 25%;
+}
+#map
+  > div.mapboxgl-popup.mapboxgl-popup-anchor-bottom
+  > div.mapboxgl-popup-content
+  > div.popup-type-image
+  > img {
+  width: 24px;
+}
+#map
+  > div.mapboxgl-popup.mapboxgl-popup-anchor-bottom
+  > div.mapboxgl-popup-content
+  > div.popup-type-image
+  > span {
+  margin-top: 2px;
+  margin-left: 5px;
+  position: absolute;
+}
+
+/*end popup styling*/
+
+
+
+@media screen and (max-width: 380px) {
+  div.mapboxgl-popup-content div.popup-image img {
+    width: 240px;
+    max-height: 250px;
   }
-);
+
+  .mapboxgl-popup-content div.title {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  div.popup-details {
+    margin-bottom: 0;
+  }
+
+  div.popup-details a.contacts {
+    font-size: 11px;
+  }
+}
