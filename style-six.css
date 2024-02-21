@@ -175,6 +175,7 @@ div#legend-items {
 
 div#legend-items > div{
   margin-bottom: 22px;
+  text-align: left;
 }
 
 .marker {
