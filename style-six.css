@@ -281,18 +281,18 @@ div.popup-details a.contacts > span.contacts-text {
 
 div.popup-details a.url-button {
   font: 16px "ProximaNova", sans-serif;
-  display: block;
-  padding-top: 16px;
-  width: 131px;
-  text-align: justify;
-  background-color: #363532;
-  color: #ffffff;
-  margin-left: 68px;
-  padding-left: 25px;
-  height: 32px;
-  border: 1px solid #363532;
-  text-decoration: none;
-  border-radius: 10px;
+    display: block;
+    padding-top: 8px;
+    width: 131px;
+    text-align: center;
+    background-color: #363532;
+    color: #ffffff;
+    margin-left: 66px;
+    padding-left: 1px;
+    height: 32px;
+    border: 1px solid #363532;
+    text-decoration: none;
+    border-radius: 10px;
 }
 div.popup-details a.url-button:hover {
   background-color: #ffffff;
