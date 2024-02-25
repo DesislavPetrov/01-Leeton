@@ -113,8 +113,8 @@ span.welcome-close-button {
   font-size: 14px;
   /* color: #E94E1B; */
   cursor: pointer;
-  margin-top: 15px;
-  margin-right: 15px;
+  margin-top: 4px;
+    margin-right: 20px;
   padding: 0;
   line-height: 26px;
   font-weight: bold;
@@ -263,6 +263,7 @@ div.popup-details {
   text-align: left;
 }
 
+
 div.popup-details a.contacts {
   text-decoration: none;
   color: #363532;
@@ -307,6 +308,10 @@ div.popup-details i.fa {
   margin-right: 10px;
   font-size: 14px;
   color: #509f71;
+}
+
+sidebar-content-inner > h1{
+  font-size: 30px;
 }
 
 div.mapboxgl-popup-content div.popup-image img {
