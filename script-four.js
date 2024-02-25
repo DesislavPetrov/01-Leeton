@@ -48,6 +48,7 @@ class MapboxGLButtonControl {
 /* Event Handlers */
 function two(event) {
   $("div.toggle-legend-box").addClass("visible-legend-box");
+  $("div.toggle-legend-box").css("display", "block");
 }
 
 /* Instantiate new controls with custom event handlers */
@@ -65,12 +66,13 @@ map.addControl(nav, "bottom-left");
 
 // toggle legend
 
-$(".button-toggle-legend").on("click", function () {
-  $("div.toggle-legend-box").addClass("visible-legend-box");
-});
+// $(".button-toggle-legend").on("click", function () {
+//   $("div.toggle-legend-box").addClass("visible-legend-box");
+// });
 
 $(".welcome-close-button").on("click", function () {
   $("div.visible-legend-box").removeClass("visible-legend-box");
+  $("div.toggle-legend-box").css("display", "none");
 });
 // toggle legend
 
