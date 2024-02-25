@@ -22,7 +22,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 600px;
+  height: 500px;
   
 }
 
@@ -50,6 +50,7 @@ div.toggle-legend-box {
   background-color: #ffffff;
   color: #000000;
   z-index: 1;
+
 }
 
 .toggle-legend-box-image {
