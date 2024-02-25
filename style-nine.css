@@ -311,7 +311,7 @@ div.popup-details i.fa {
 }
 
 sidebar-content-inner > h1{
-  font-size: 30px;
+  font-size: 30px !important;
 }
 
 div.mapboxgl-popup-content div.popup-image img {
