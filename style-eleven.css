@@ -320,6 +320,10 @@ div.mapboxgl-popup-content div.popup-image img {
   max-height: 250px;
 }
 
+h1.welcome-popup{
+font-size: 30px !important;
+}
+
 div.title,
 div.marker-popup-icon{
   display: inline-block;
