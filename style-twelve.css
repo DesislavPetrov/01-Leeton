@@ -331,6 +331,7 @@ div.marker-popup-icon{
 }
 
 div.marker-popup-icon{
+  margin-top: -6px;
   position: relative;
     left: -19px;
     top: -19px;
