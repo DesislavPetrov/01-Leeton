@@ -331,10 +331,10 @@ div.marker-popup-icon{
 }
 
 div.marker-popup-icon{
-  margin-top: -6px;
-  position: relative;
-    left: -19px;
-    top: -19px;
+  margin-top: -1px;
+  position: absolute;
+    left: 12px;
+    top: 16px;
 }
 
 div.marker-popup-icon> img{
