@@ -114,7 +114,7 @@ span.welcome-close-button {
   font-size: 14px;
   /* color: #E94E1B; */
   cursor: pointer;
-  margin-top: 4px;
+  margin-top: 14px;
     margin-right: 20px;
   padding: 0;
   line-height: 26px;
@@ -132,6 +132,7 @@ span.welcome-close-button:hover {
 }
 
 .sidebar-content-inner {
+  margin-top: 14px;
   text-align: center;
 }
 
