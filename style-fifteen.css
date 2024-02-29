@@ -105,7 +105,6 @@ button.welcome-button {
 
 span.welcome-close-button {
   float: right;
-  right: 13px;
   border-radius: 21px;
   background-color: #000000;
   border: 1px solid #000000;
@@ -115,7 +114,7 @@ span.welcome-close-button {
   /* color: #E94E1B; */
   cursor: pointer;
   margin-top: 14px;
-    margin-right: 20px;
+    margin-right: 9px;
   padding: 0;
   line-height: 26px;
   font-weight: bold;
@@ -167,7 +166,7 @@ div.toggle-legend-box {
 img.legend-image {
   width: 35px;
   float: right;
-  margin-right: 16px;
+  margin-right: 4px;
   margin-top: -6px;
 }
 
