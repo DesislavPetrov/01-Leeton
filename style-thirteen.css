@@ -197,18 +197,18 @@ div#legend-items > div{
 
 .mapboxgl-popup-close-button {
   float: right;
-  right: 13px;
-  border-radius: 21px;
-  border: 1px solid #363532;
-  background-color: #ffffff;
-  width: 20px;
-  height: 20px;
-  font-size: 14px;
-  color: #363532;
-  cursor: pointer;
-  margin-top: 16px;
-  padding: 0;
-  line-height: 18px;
+    right: 15px;
+    border-radius: 21px;
+    border: 1px solid #363532;
+    background-color: #ffffff;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    color: #363532;
+    cursor: pointer;
+    margin-top: 22px;
+    vertical-align: top;
+    line-height: 18px;
 }
 
 .mapboxgl-popup-close-button:hover {
@@ -333,9 +333,9 @@ div.marker-popup-icon{
 
 div.marker-popup-icon{
   margin-top: -1px;
-  position: absolute;
+    position: absolute;
     left: 12px;
-    top: 16px;
+    top: 24px;
 }
 
 div.marker-popup-icon> img{
