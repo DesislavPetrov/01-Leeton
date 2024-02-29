@@ -241,7 +241,7 @@ div#zoom-button-explanation > span{
 }
 div#zoom-button-explanation > img{
   position: relative;
-    right: 2px;
+    right: -17px;
     width: 18px;
     top: -28px;
 }
