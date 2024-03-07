@@ -197,7 +197,10 @@ div#legend-items > div{
 .mapboxgl-popup-close-button {
   float: right;
     right: 15px;
-    border-radius: 21px;
+    border-radius: 50px;
+  -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
     border: 1px solid #363532;
     background-color: #ffffff;
     width: 20px;
